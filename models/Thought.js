@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const ReactionSchema = require('./Reaction');
+const moment = require('moment');
 
 const thoughtSchema = new Schema({
     thoughtText: {
