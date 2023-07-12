@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const db = require("./config/connection");
 const routes = require("./routes");
 
 const PORT = process.env.PORT || 3001;
@@ -14,13 +15,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/3001", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+db.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
 });
-
-app.listen(PORT, () => {
-  console.log(`API server running on port ${PORT}!`);
-});
-
-// , useCreateIndex: true, useFindAndModify: false
